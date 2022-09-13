@@ -1,7 +1,31 @@
-import React from "react";
+import { gql, useQuery } from "@apollo/client";
 import Lesson from "../Lesson";
 
-const Sidebar: React.FC = () => {
+const GET_LESSONS_QUERY = gql`
+  query {
+    lessons(orderBy: availableAt_ASC, stage: PUBLISHED) {
+      id
+      lessonType
+      availableAt
+      title
+      slug
+    }
+  }
+`;
+
+interface GetLessonsQueryResponse {
+  lessons: {
+    id: string;
+    title: string;
+    slug: string;
+    availableAt: string;
+    lessonType: "live" | "class";
+  }[];
+}
+
+const Sidebar = () => {
+  const { data } = useQuery<GetLessonsQueryResponse>(GET_LESSONS_QUERY);
+
   return (
     //No Tailwind, quando não encontramos a medida que queremos, utilizamos a medida no colchete w-[348px]
     <aside className="w-[348px] bg-gray-700 p-6 border-l border-gray-600">
@@ -9,12 +33,17 @@ const Sidebar: React.FC = () => {
         Cronograma de aulas
       </span>
       <div className="flex flex-col gap-8">
-        <Lesson />
-        <Lesson />
-        <Lesson />
-        <Lesson />
-        <Lesson />
-        <Lesson />
+        {data?.lessons.map((lesson) => {
+          return (
+            <Lesson
+              key={lesson.id}
+              title={lesson.title}
+              slug={lesson.slug}
+              availableAt={new Date(lesson.availableAt)}
+              type={lesson.lessonType}
+            />
+          );
+        })}
       </div>
     </aside>
   );

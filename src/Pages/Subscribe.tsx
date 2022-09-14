@@ -3,14 +3,6 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "../components/Logo";
 
-const CREATE_SUBSCRIBE_MUTATION = gql`
-  mutation CreateSubscriber($name: String!, $email: String!) {
-    createSubscriber(data: { name: $name, email: $email }) {
-      id
-    }
-  }
-`;
-
 export const Subscribe = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

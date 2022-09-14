@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import Event from "./Pages/Event";
-import Home from "./Pages/Home";
+import Subscribe from "./Pages/Subscribe";
 
 const Router = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Subscribe />} />
       <Route path="/event" element={<Event />} />
       <Route path="/event/lesson/:slug" element={<Event />} />
     </Routes>

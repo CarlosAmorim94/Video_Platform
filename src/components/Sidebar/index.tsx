@@ -1,8 +1,8 @@
-import { gql, useQuery } from "@apollo/client";
+import { useGetLessonsQuery } from "../../graphql/generated";
 import Lesson from "../Lesson";
 
 const Sidebar = () => {
-  const { data } = useQuery<GetLessonsQueryResponse>(GET_LESSONS_QUERY);
+  const { data } = useGetLessonsQuery();
 
   return (
     //No Tailwind, quando não encontramos a medida que queremos, utilizamos a medida no colchete w-[348px]
